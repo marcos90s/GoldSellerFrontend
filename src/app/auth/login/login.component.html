@@ -1,0 +1,30 @@
+<div class="login-container">
+  <form class="login-form" (ngSubmit)="realizarLogin()"> 
+    <h1>Login</h1>
+    <div class="input-wrapper">
+    <input class="form-control-material" placeholder=" " type="email" id="email" name="email" [(ngModel)]="loginEmail" [disabled]="carregandoLogin" required>
+    <label for="email">Email</label>
+    </div>
+    <div class="input-wrapper">
+      <input class="form-control-material" placeholder=" " type="password" id="password" name="password" [(ngModel)]="loginPassword" [disabled]="carregandoLogin" required>
+      <label for="password">Password</label>
+    </div>
+
+    <button class="btnGoldSellerPrimary" style="margin-top: 20px;" type="submit" [disabled]="carregandoLogin || !loginEmail || !loginPassword">
+      {{ carregandoLogin ? 'Entrando...' : 'Entrar' }}
+    </button>
+  </form>
+
+  <div *ngIf="carregandoLogin" style="margin-top: 10px;">
+    Aguarde...
+  </div>
+
+  <div *ngIf="loginMessage" style="margin-top: 10px; color: green; border: 1px solid green; padding: 5px;">
+    {{ loginMessage }}
+  </div>
+
+  <div *ngIf="erroLogin" style="margin-top: 10px; color: red; border: 1px solid red; padding: 5px;">
+    {{ erroLogin }}
+  </div>
+</div>
+

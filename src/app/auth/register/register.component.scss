@@ -1,0 +1,97 @@
+.input-wrapper {
+  position: relative;
+  margin-bottom: 20px; /* Espaçamento entre os campos */
+}
+
+.input-wrapper input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+}
+
+.input-wrapper label {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  color: #999;
+  pointer-events: none;
+  transition: 0.2s ease all;
+}
+
+.input-wrapper input:focus + label,
+.input-wrapper input:not(:placeholder-shown) + label,
+.input-wrapper input:-webkit-autofill + label { /* Para navegadores WebKit que preenchem automaticamente */
+  top: -15px;
+  left: 5px;
+  font-size: 0.8em;
+  color: #333;
+  background-color: white; /* Para cobrir o fundo onde a label estava */
+  padding: 0 5px;
+}
+
+/* Estilos adicionais para o estado de foco do input, se desejar */
+.input-wrapper input:focus {
+  border-color: #007bff;
+}
+
+.btnRegister {
+  padding: 8px 20px;
+  border-radius: 0;
+  overflow: hidden;
+
+  &::before {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      120deg,
+      transparent,
+      var(--primary-color),
+      transparent
+    );
+    transform: translateX(-100%);
+    transition: 0.6s;
+  }
+
+  &:hover {
+    background: transparent;
+    box-shadow: 0 0 20px 10px hsla(204, 70%, 53%, 0.5);
+
+    &::before {
+      transform: translateX(100%);
+    }
+  }
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px 40px;
+  color: white;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 10px;
+  box-shadow: 0 0.4px 0.4px rgba(128, 128, 128, 0.109),
+    0 1px 1px rgba(128, 128, 128, 0.155),
+    0 2.1px 2.1px rgba(128, 128, 128, 0.195),
+    0 4.4px 4.4px rgba(128, 128, 128, 0.241),
+    0 12px 12px rgba(128, 128, 128, 0.35);
+
+  h1 {
+    margin: 0 0 24px 0;
+  }
+
+  .form-input-material {
+    margin: 12px 0;
+  }
+
+  .btn {
+    width: 100%;
+    margin: 18px 0 9px 0;
+  }
+}

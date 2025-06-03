@@ -1,0 +1,26 @@
+table {
+  width: 100%; /* Faz a tabela ocupar toda a largura disponível */
+  border-collapse: collapse; /* Remove espaços entre as bordas das células */
+  margin-top: 20px; /* Espaço acima da tabela */
+}
+
+th, td {
+  border: 1px solid #ddd; /* Adiciona uma borda cinza claro */
+  padding: 8px; /* Espaçamento interno nas células */
+  text-align: left; /* Alinha o texto à esquerda */
+}
+
+th {
+  background-color: #f2f2f2; /* Um fundo cinza claro para o cabeçalho */
+  color: #333; /* Cor do texto do cabeçalho */
+}
+
+/* Estilo para linhas pares (efeito zebrado) */
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Estilo ao passar o mouse sobre uma linha */
+tbody tr:hover {
+  background-color: #e9e9e9;
+}

@@ -1,0 +1,16 @@
+.entrar-button{
+  background-color: #0F172A; /* cor escura */
+  color: white;             /* texto branco */
+  font-weight: bold;        /* texto em negrito */
+  padding: 10px 20px;       /* espaço interno */
+  border: none;             /* sem borda */
+  border-radius: 8px;       /* cantos arredondados */
+  cursor: pointer;          /* cursor de clique */
+  font-size: 16px;
+  margin-right: 30px;
+  margin-bottom: 20px;
+}
+
+.entrar-button:hover{
+    background-color: #1E293B;
+}

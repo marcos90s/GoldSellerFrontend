@@ -1,0 +1,97 @@
+.navbar {
+  background-color: #333; /* Cor de fundo escura */
+  color: white;
+  padding: 10px 20px;
+  display: flex; /* Alinha itens horizontalmente */
+  justify-content: space-between; /* Espaça o logo/links dos actions */
+  align-items: center; /* Alinha verticalmente ao centro */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand a.navbar-logo {
+  color: gold;
+  text-decoration: none;
+  font-size: 1.5em; /* Tamanho do nome/logo */
+  font-weight: bold;
+}
+
+.navbar-links,
+.navbar-actions {
+  list-style: none; /* Remove marcadores da lista */
+  padding: 0;
+  margin: 0;
+  display: flex; /* Alinha os itens da lista horizontalmente */
+}
+
+.navbar-links li,
+.navbar-actions li {
+  margin-left: 20px; /* Espaçamento entre os links */
+}
+
+.navbar-links a,
+.navbar-actions a,
+.navbar-actions button {
+  color: gold;
+  text-decoration: none;
+  font-size: 1em;
+  padding: 8px 10px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.navbar-links a:hover,
+.navbar-actions a:hover,
+.navbar-actions button:hover {
+  background-color: #555; /* Cor de fundo ao passar o mouse */
+}
+
+/* Estilo para o link ativo */
+.navbar-links a.active-link,
+.navbar-actions a.active-link {
+  background-color: #007bff; /* Cor de destaque para o link ativo */
+  color: white;
+  font-weight: bold;
+}
+
+.navbar-actions button {
+  background-color: #007bff;
+  border: none;
+  cursor: pointer;
+}
+
+.navbar-actions button:hover {
+  background-color: #0056b3;
+}
+
+/* Responsividade simples (opcional) */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navbar-links {
+    margin-top: 10px;
+    flex-direction: column; /* Empilha os links verticalmente em telas menores */
+    width: 100%;
+  }
+
+  .navbar-links li,
+  .navbar-actions li {
+    margin-left: 0;
+    margin-top: 5px;
+    width: 100%;
+  }
+
+  .navbar-links a,
+  .navbar-actions a,
+  .navbar-actions button {
+    display: block; /* Faz os links ocuparem toda a largura */
+    text-align: left;
+  }
+
+  .navbar-actions {
+    margin-top: 10px;
+    width: 100%;
+  }
+}

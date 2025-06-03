@@ -1,0 +1,50 @@
+<h1 style="text-align: center;">Gerenciamento de usuários</h1>
+<div style="margin-bottom: 20px; padding: 10px; border: 1px solid #ccc;">
+    <h3>Buscar usuário por Email</h3>
+    <input type="email" [(ngModel)]="searchEmail" placeholder="Digite o email para filtrar"
+    (keyup.enter)="executeSearch()"
+    style="margin-right: 10px; padding: 8px; min-width: 250px;">
+</div>
+
+<button (click)="executeSearch()" [disabled]="loading" style="padding: 8px 12px; margin-right: 5px;">
+    {{loading && searchEmail ? 'Buscando...' : 'Buscar'}}
+</button>
+
+<button (click)="showAll()" [disabled]="loading" style="padding: 8px 12px;">
+    Mostrar todos
+</button>
+
+<div *ngIf="loading">Carregando lista de usuários</div>
+<div *ngIf="feedbackMessage && !loading" style="color: blue; margin-top: 10px;">
+    {{feedbackMessage}}
+</div>
+<div *ngIf="erroApi" style="color: red; margin-top: 10px;">{{erroApi}}</div>
+
+<div *ngIf="responseData && responseData.length > 0; else semUsuarios">
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Gold</th>
+                <th>R$</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of responseData">
+                <td>{{user.id}}</td>
+                <td>{{user.name}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.role}}</td>
+                <td>{{user.totalGold}}</td>
+                <td>{{user.totalMoney}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<ng-template #semUsuarios>
+    <p *ngIf="!loading && !erroApi">Nenhum usuário encontrado</p>
+</ng-template>

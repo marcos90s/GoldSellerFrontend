@@ -1,1 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
+/* styles.css */
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+.btnGoldSellerPrimary {
+  background-color: #FFD700; /* Cor de ouro */
+  color: black; /* Cor do texto (para boa visibilidade com o ouro) */
+  padding: 10px 20px; /* Espaçamento interno para o texto não ficar colado nas bordas */
+  border: none; /* Remove a borda padrão */
+  border-radius: 5px; /* Arredonda as bordas (opcional) */
+  cursor: pointer; /* Muda o cursor ao passar por cima, indicando que é clicável */
+  font-size: 1em; /* Tamanho da fonte (ajuste conforme necessário) */
+  text-align: center; /* Centraliza o texto horizontalmente */
+  display: inline-block;
+}
+
+.btnGoldSellerPrimary:hover{
+    background-color: #B8860B;
+}
