@@ -1,50 +1,83 @@
-<h1 style="text-align: center;">Gerenciamento de usuários</h1>
-<div style="margin-bottom: 20px; padding: 10px; border: 1px solid #ccc;">
-    <h3>Buscar usuário por Email</h3>
-    <input type="email" [(ngModel)]="searchEmail" placeholder="Digite o email para filtrar"
-    (keyup.enter)="executeSearch()"
-    style="margin-right: 10px; padding: 8px; min-width: 250px;">
-</div>
+<div class="user-management-container">
+  <h2 style="color: gold; margin-top: 1.5em;">Gerenciamento de Usuários</h2>
 
-<button (click)="executeSearch()" [disabled]="loading" style="padding: 8px 12px; margin-right: 5px;">
-    {{loading && searchEmail ? 'Buscando...' : 'Buscar'}}
-</button>
+  <div *ngIf="isloading" class="loading-message">
+    <p>Carregando...</p>
+  </div>
+  <div *ngIf="feedbackMessage && !isloading" class="feedback-message">
+    <p>{{ feedbackMessage }}</p>
+  </div>
+  <div *ngIf="erroMessage && !isloading" class="error-message">
+    <p>Erro: {{ erroMessage }}</p>
+  </div>
 
-<button (click)="showAll()" [disabled]="loading" style="padding: 8px 12px;">
-    Mostrar todos
-</button>
+  <div *ngIf="isUserCurrentlyAdmin" class="search-area">
+    <h3>Buscar Usuários por Email</h3>
+    <div class="search-controls">
+      <input
+        type="email"
+        [(ngModel)]="emailToSearch"
+        placeholder="Digite o email para filtrar"
+        (input)="triggerSearch()"
+        aria-label="Email para busca"
+      />
+      <button (click)="triggerSearch()" [disabled]="isloading" class="btn btn-primary">
+        Buscar
+      </button>
+      <button (click)="clearSearchAndShowRelevant()" [disabled]="isloading" class="btn btn-secondary">
+        Limpar / Mostrar Todos
+      </button>
+    </div>
+  </div>
 
-<div *ngIf="loading">Carregando lista de usuários</div>
-<div *ngIf="feedbackMessage && !loading" style="color: blue; margin-top: 10px;">
-    {{feedbackMessage}}
-</div>
-<div *ngIf="erroApi" style="color: red; margin-top: 10px;">{{erroApi}}</div>
-
-<div *ngIf="responseData && responseData.length > 0; else semUsuarios">
+  <div *ngIf="!isloading && !erroMessage && displayedUsers && displayedUsers.length > 0; else noUsersDisplay" class="table-responsive">
     <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Email</th>
-                <th>Role</th>
-                <th>Gold</th>
-                <th>R$</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let user of responseData">
-                <td>{{user.id}}</td>
-                <td>{{user.name}}</td>
-                <td>{{user.email}}</td>
-                <td>{{user.role}}</td>
-                <td>{{user.totalGold}}</td>
-                <td>{{user.totalMoney}}</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+      <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Papel (Role)</th>
+            <th>ID</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of displayedUsers">
+            <td data-label="Nome">{{ user.name }}</td>
+            <td data-label="Email">{{ user.email }}</td>
+            <td data-label="Papel (Role)">{{ user.role }}</td>
+            <td data-label="ID">{{ user.id }}</td>
+          <td data-label="Ações" class="actions-cell">
+            <button
+              (click)="initiateUpdate(user)"
+              class="btn btn-action btn-update"
+              [title]="isUserCurrentlyAdmin ? 'Atualizar usuário ' + user.name : 'Atualizar meus dados'"
+              [disabled]="isloading">
+              Atualizar
+            </button>
 
-<ng-template #semUsuarios>
-    <p *ngIf="!loading && !erroApi">Nenhum usuário encontrado</p>
-</ng-template>
+            <button
+              (click)="deleteUser(user)"
+              class="btn btn-action btn-delete"
+              [title]="isUserCurrentlyAdmin ? 'Deletar usuário ' + user.name : 'Deletar minha conta'"
+              [disabled]="isloading">
+              Deletar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #noUsersDisplay>
+    <p *ngIf="!isloading && !erroMessage && !feedbackMessage" class="no-data-message">
+      Nenhum usuário para exibir no momento.
+    </p>
+  </ng-template>
+</div>
+<app-user-edit-modal
+  *ngIf="showEditModal"
+  [user]="userCurrentlyEditing"
+  (save)="handleUserUpdate($event)"
+  (close)="closeUserEditModal()">
+</app-user-edit-modal>

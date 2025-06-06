@@ -1,0 +1,30 @@
+<div class="modal-overlay" (click)="closeModal()"> <div class="modal-content" (click)="$event.stopPropagation()"> <h3 *ngIf="user">Editar Usuário: {{ user?.name }} ({{ user?.email }})</h3>
+    <h3 *ngIf="!user">Carregando dados do usuário...</h3>
+
+    <form *ngIf="user" (ngSubmit)="onSave()">
+      <div class="form-group">
+        <label for="editName">Nome:</label>
+        <input type="text" id="editName" name="editName" [(ngModel)]="editName" required>
+      </div>
+
+      <div class="form-group">
+        <label for="newPassword">Nova Senha (opcional):</label>
+        <input type="password" id="newPassword" name="newPassword" [(ngModel)]="newPassword" placeholder="Deixe em branco para não alterar">
+        </div>
+
+      <div class="form-group readonly-info">
+        <p><strong>Email:</strong> {{ user?.email }}</p>
+        <p><strong>Papel (Role):</strong> {{ user?.role }}</p>
+      </div>
+
+      <div class="modal-actions">
+        <button type="submit" class="btn btn-save" [disabled]="editName.trim() === ''">Salvar Alterações</button>
+        <button type="button" (click)="closeModal()" class="btn btn-cancel">Cancelar</button>
+      </div>
+    </form>
+    <div *ngIf="!user">
+        <p>Não foi possível carregar os detalhes do usuário para edição.</p>
+        <button type="button" (click)="closeModal()" class="btn btn-cancel">Fechar</button>
+    </div>
+  </div>
+</div>

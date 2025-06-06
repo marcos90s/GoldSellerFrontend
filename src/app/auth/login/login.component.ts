@@ -3,23 +3,20 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService, LoginResponse, UserProfile } from '../../core/auth.service';
 
 interface LoginPayload{
   email: string;
   password: string;
 }
 
-interface LoginResponse{
+interface ApiLoginResponse{
   token: string;
   userId: string;
   email: string;
   role: string;
-  type: string
-}
-
-interface ErroReponse{
-  mensagem: string;
-  erros?: any[];
+  name?: string;
+  type?: string;
 }
 
 @Component({
@@ -37,7 +34,7 @@ export class LoginComponent {
   erroLogin: string | null = null;
   carregandoLogin: boolean = false;
 
-  constructor( private ApiService: ApiService, private router: Router){}
+  constructor( private apiService: ApiService, private router: Router, private authService: AuthService){}
 
   realizarLogin(): void {
     console.log('tentando realizar login com: ', this.loginEmail);
@@ -55,19 +52,31 @@ export class LoginComponent {
       password: this.loginPassword
     };
 
-    this.ApiService.postData<LoginPayload, LoginResponse>('/auth/login', payload)
+    this.apiService.postData<LoginPayload, ApiLoginResponse>('/auth/login', payload)
     .subscribe({
-      next: (resposta) =>{
+      next: (response) =>{
         this.carregandoLogin = false;
-        this.loginMessage = "Login realizado com sucesso!";
-        console.log('Login bem-sucedido! Resposta: ', resposta);
-        console.log('Token recebido:', resposta.token);
+        this.loginMessage = "Login realizado coam sucesso!";
+        console.log('Login bem-sucedido! Resposta: ', response);
+        console.log('Token recebido:', response.token);
 
-        localStorage.setItem('MeuAppToken', resposta.token);
+        const userProfileData: UserProfile = {
+          id: response.userId,
+          name: response.name || this.extractNameFromEmail(response.email),
+          email: response.email,
+          role: response.role
+        }
 
-        alert('Login realizado com sucesso! Token: '+resposta.token);
-        this.loginEmail = '';
-        this.loginPassword = '';
+        const authServiceLoginData: LoginResponse ={
+          token: response.token,
+          user: userProfileData
+        };
+
+        this.authService.login(authServiceLoginData);
+        console.log('Token e dados armazenados via AuthService.')
+
+        this.router.navigate(['/users']);
+
       },
       error: (erro) => {
       this.carregandoLogin = false;
@@ -87,6 +96,13 @@ export class LoginComponent {
         console.log('Requisição de login completada.')
       }
     });
+  }
+
+  private extractNameFromEmail(email: string): string{
+    if(email && email.includes('@')){
+      return email.split('@')[0];
+    }
+    return '';
   }
 
   private limparMensagensLogin(): void{

@@ -12,11 +12,12 @@
   color: gold;
   text-decoration: none;
   font-size: 1.5em; /* Tamanho do nome/logo */
-  font-weight: bold;
+  font-weight: 500
 }
 
 .navbar-links,
 .navbar-actions {
+  color: gold;
   list-style: none; /* Remove marcadores da lista */
   padding: 0;
   margin: 0;
@@ -48,9 +49,9 @@
 /* Estilo para o link ativo */
 .navbar-links a.active-link,
 .navbar-actions a.active-link {
-  background-color: #007bff; /* Cor de destaque para o link ativo */
-  color: white;
-  font-weight: bold;
+   /* Cor de destaque para o link ativo */
+  color: gold;
+  font-size: 1em;
 }
 
 .navbar-actions button {

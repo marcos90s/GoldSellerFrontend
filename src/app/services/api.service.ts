@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { catchError, map, Observable, throwError } from 'rxjs';
 
 @Injectable({
@@ -14,7 +15,7 @@ export class ApiService {
   // Construtor onde o HttpClient é injetado.
   // 'private http: HttpClient' cria uma propriedade privada 'http'
   // e automaticamente atribui a instância do HttpClient a ela.
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   public getData<T>(endpoint: string, params?: HttpParams, customHeaders?: HttpHeaders): Observable<T>{
     //monta URL completa
@@ -45,11 +46,38 @@ export class ApiService {
     );
   }
 
+  public updateData<T_Payload, T_Response>(baseEndpoint: string, id: string, payload: T_Payload, customHeaders?: HttpHeaders): Observable<T_Response>{
+    //Monta a URL
+    const url = `${this.apiUrl}${baseEndpoint}/${id}`;
+    const options = {headers: customHeaders};
+
+    console.log(`ApiService: PUT request to ${url} with payload:`,payload);
+    return this.http.put<T_Response>(url, payload, options).pipe(catchError(this.handleError));
+  }
+
+  public deleteData<T_Response>(baseEndpoint: string, id: string, customHeaders?: HttpHeaders): Observable<T_Response>{
+    const url = `${this.apiUrl}${baseEndpoint}/${id}`;
+    const options = {headers: customHeaders};
+
+    console.log(`ApiService: DELETE request to ${url}`);
+    return this.http.delete<T_Response>(url, options).pipe(catchError(this.handleError))
+  }
 
 
   private handleError(error: any): Observable<never> {
-    console.error('Ocorreu um erro na API:', error); // Loga o erro no console
-    // Poderia também formatar o erro para o usuário ou enviá-lo para um serviço de logging
-    return throwError(() => new Error(error)); // Relança o erro para o chamador do serviço
+    console.error('Ocorreu um erro na API:', error);
+    let errorMessage = 'Ocorreu um erro desconhecido!'
+    if(error.error instanceof ErrorEvent){
+      //Erro do lado do cliente ou rede
+      errorMessage = `Erro do cliente: ${error.error.message}`
+    }else if(error.status){
+      //backend retornou um status de erro
+      errorMessage = `Erro do servidor: ${error.status}\nDetalhes: ${error.error?.mensagem || error.message}`;
+      if(error.status === 401 || error.status === 403){
+        console.warn('Erro de autorização. O token pode ser inválido ou expirado.');
+        this.router.navigate(['/login']);
+      }
+    }
+    return throwError(() => new Error(errorMessage));
   }
 }
