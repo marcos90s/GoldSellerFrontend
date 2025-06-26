@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { timeInterval } from 'rxjs';
 
 interface RegisterPayload{
   name: string;
@@ -46,7 +45,7 @@ export class RegisterComponent {
     this.limparMensagensRegister();
     this.loadgingRegister = true;
 
-    if(!this.registerName ||!this.registerEmail || !this.registerPassword){
+    if(!this.registerName || !this.registerEmail || !this.registerPassword){
       this.erroRegister = 'Por favor, preencha todas as informações';
       this.loadgingRegister = false;
       return;
@@ -71,15 +70,11 @@ export class RegisterComponent {
       //Fix error message
       error: (erro) => {
         this.loadgingRegister = false;
-        if (erro && erro.error && typeof erro.error.mensagem === 'string') {
-            this.erroRegister = erro.error.mensagem;
-          } else if (typeof erro.message === 'string') {
-            this.erroRegister = erro.message;
-          } else {
-            this.erroRegister = 'Falha no login. Verifique suas credenciais ou tente novamente mais tarde.';
-          }
-          this.erroRegister = 'Ops! Algo deu errado!'
-          console.error('FALHA NO LOGIN! Detalhes do erro:', erro);
+        this.registerName = '';
+        this.registerEmail = '';
+        this.registerPassword = '';
+        this.erroRegister = erro.message;
+
       },
       complete: () => {
         this.loadgingRegister = false;

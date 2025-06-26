@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, map, Observable, throwError } from 'rxjs';
@@ -42,7 +42,7 @@ export class ApiService {
     return this.http.post<U>(url, data, options)
     .pipe(
       map((response: U)=> response),
-      catchError(this.handleError)
+      catchError(error => this.handleError(error))
     );
   }
 
@@ -65,19 +65,18 @@ export class ApiService {
 
 
   private handleError(error: any): Observable<never> {
-    console.error('Ocorreu um erro na API:', error);
-    let errorMessage = 'Ocorreu um erro desconhecido!'
+    let errorMessage = 'Ocorreu um erro desconhecido!';
     if(error.error instanceof ErrorEvent){
       //Erro do lado do cliente ou rede
       errorMessage = `Erro do cliente: ${error.error.message}`
-    }else if(error.status){
-      //backend retornou um status de erro
-      errorMessage = `Erro do servidor: ${error.status}\nDetalhes: ${error.error?.mensagem || error.message}`;
+    }else if(error instanceof HttpErrorResponse){
+      errorMessage = `${error.error.message}`;
       if(error.status === 401 || error.status === 403){
-        console.warn('Erro de autorização. O token pode ser inválido ou expirado.');
-        this.router.navigate(['/login']);
+        errorMessage = `${error.error.message}`
       }
     }
+    console.warn(`Status: ${error.status} - ${errorMessage}`);
+
     return throwError(() => new Error(errorMessage));
   }
 }

@@ -79,17 +79,12 @@ export class LoginComponent {
 
       },
       error: (erro) => {
-      this.carregandoLogin = false;
-          // O 'erro' aqui pode ser um HttpErrorResponse.
-          // A mensagem de erro real do backend pode estar em erro.error.mensagem
-          if (erro && erro.error && typeof erro.error.mensagem === 'string') {
-            this.erroLogin = erro.error.mensagem;
-          } else if (typeof erro.message === 'string') {
-            this.erroLogin = erro.message;
-          } else {
-            this.erroLogin = 'Falha no login. Verifique suas credenciais ou tente novamente mais tarde.';
-          }
-          console.error('FALHA NO LOGIN! Detalhes do erro:', erro);
+
+        this.carregandoLogin = false;
+        this.loginEmail = '';
+        this.loginPassword = '';
+        this.erroLogin = erro.message;
+
         },
       complete: () => {
         this.carregandoLogin = false;
