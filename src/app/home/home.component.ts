@@ -11,10 +11,8 @@ import { Router } from '@angular/router';
 export class HomeComponent {
 
   constructor(private router: Router){}
-
-  logar(){
-    this.router.navigate(['/login'])
-  }
+  
+  homeText: string = 'O Gold Seller foi criado para te ajudar a gerenciar sua venda de gold! Se você ainda não tem uma conta, registre-se'
 
   registrar(){
     this.router.navigate(['/register'])
