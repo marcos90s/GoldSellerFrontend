@@ -1,5 +1,5 @@
 .navbar {
-  background-color: #333; /* Cor de fundo escura */
+  background-color: black; /* Cor de fundo escura */
   color: white;
   padding: 10px 20px;
   display: flex; /* Alinha itens horizontalmente */
@@ -12,7 +12,7 @@
   color: gold;
   text-decoration: none;
   font-size: 1.5em; /* Tamanho do nome/logo */
-  font-weight: 500
+  font-weight: 500;
 }
 
 .navbar-links,
@@ -22,6 +22,7 @@
   padding: 0;
   margin: 0;
   display: flex; /* Alinha os itens da lista horizontalmente */
+  text-align: center;
 }
 
 .navbar-links li,

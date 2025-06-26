@@ -2,10 +2,12 @@
   <div class="navbar-brand">
     <a routerLink="/" class="navbar-logo">Gold Seller</a> </div>
   <ul class="navbar-links">
-    <li><a routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">Início</a></li> <li><a routerLink="/users" routerLinkActive="active-link">Usuários</a></li> <li><a routerLink="/sobre" routerLinkActive="active-link">Sobre</a></li> </ul>
+    <li><a routerLink="/home" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">Início</a></li>
+    <li><a routerLink="/users" routerLinkActive="active-link">Usuários</a></li>
+    <li><a routerLink="/sobre" routerLinkActive="active-link">Sobre</a></li>
+  </ul>
   <ul class="navbar-actions">
-    <li *ngIf="!(isLoggedIn$ | async)"> <a routerLink="/login" routerLinkActive="active-link">Login</a>
-    </li>
+    <li *ngIf="!(isLoggedIn$ | async)"> <a routerLink="/login" routerLinkActive="active-link">Login</a></li>
     <li *ngIf="isLoggedIn$ | async"> <a (click)="logout()" href="javascript:void(0);" class="logout-link">Logout</a>
       </li>
   </ul>

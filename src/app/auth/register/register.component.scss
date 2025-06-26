@@ -20,6 +20,10 @@
   transition: 0.2s ease all;
 }
 
+.register-conteiner{
+  background-color: black;
+}
+
 .input-wrapper input:focus + label,
 .input-wrapper input:not(:placeholder-shown) + label,
 .input-wrapper input:-webkit-autofill + label { /* Para navegadores WebKit que preenchem automaticamente */
@@ -33,7 +37,7 @@
 
 /* Estilos adicionais para o estado de foco do input, se desejar */
 .input-wrapper input:focus {
-  border-color: #007bff;
+  border-color: gold;
 }
 
 .btnRegister {
@@ -94,4 +98,5 @@
     width: 100%;
     margin: 18px 0 9px 0;
   }
+
 }
