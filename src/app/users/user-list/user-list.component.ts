@@ -1,11 +1,11 @@
 import { UserUpdatePayload, UserEditModalComponent } from './../user-edit-modal/user-edit-modal.component';
 import { HttpHeaders, HttpParams } from '@angular/common/http';
-import { ApiService } from './../../services/api.service';
+import { ApiService } from '../../core/services/api.service';
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService, UserProfile } from '../../core/auth.service';
+import { AuthService, UserProfile } from '../../core/services/auth.service';
 import { Subscription } from 'rxjs';
 
 
@@ -175,7 +175,7 @@ export class UserListComponent implements OnInit, OnDestroy{
         this.isloading = false;
         const errorDetail = err.error?.mensagem || err.message || 'Erro desconhecido';
         this.erroMessage = `Falha ao atualizar usuário.`
-        console.error('Erro ao tentar atualizar usuário: ', err)
+        console.error('Erro ao tentar atualizar usuário: ', errorDetail)
       }
     });
   }

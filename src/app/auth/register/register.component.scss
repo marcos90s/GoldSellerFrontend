@@ -20,10 +20,6 @@
   transition: 0.2s ease all;
 }
 
-.register-conteiner{
-  background-color: black;
-}
-
 .input-wrapper input:focus + label,
 .input-wrapper input:not(:placeholder-shown) + label,
 .input-wrapper input:-webkit-autofill + label { /* Para navegadores WebKit que preenchem automaticamente */
@@ -74,12 +70,15 @@
 
 .register-form {
   display: flex;
+  width: 50%;
+  margin-left: 25%;
+  margin-top: 5%;
   flex-direction: column;
   align-items: center;
   padding: 50px 40px;
   color: white;
   background: rgba(0, 0, 0, 0.8);
-  border-radius: 10px;
+  border-radius: 30px;
   box-shadow: 0 0.4px 0.4px rgba(128, 128, 128, 0.109),
     0 1px 1px rgba(128, 128, 128, 0.155),
     0 2.1px 2.1px rgba(128, 128, 128, 0.195),

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { UserProfile } from '../../core/auth.service';
+import { UserProfile } from '../../core/services/auth.service';
 
 export interface UserUpdatePayload{
   name?: string;

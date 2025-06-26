@@ -1,11 +1,12 @@
 .navbar {
-  background-color: black; /* Cor de fundo escura */
+  background-color: black;
   color: white;
-  padding: 10px 20px;
-  display: flex; /* Alinha itens horizontalmente */
-  justify-content: space-between; /* Espaça o logo/links dos actions */
-  align-items: center; /* Alinha verticalmente ao centro */
+  padding: 20px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
 }
 
 .navbar-brand a.navbar-logo {
@@ -18,16 +19,16 @@
 .navbar-links,
 .navbar-actions {
   color: gold;
-  list-style: none; /* Remove marcadores da lista */
+  list-style: none;
   padding: 0;
   margin: 0;
-  display: flex; /* Alinha os itens da lista horizontalmente */
+  display: flex;
   text-align: center;
 }
 
 .navbar-links li,
 .navbar-actions li {
-  margin-left: 20px; /* Espaçamento entre os links */
+  margin-left: 20px;
 }
 
 .navbar-links a,
@@ -44,13 +45,11 @@
 .navbar-links a:hover,
 .navbar-actions a:hover,
 .navbar-actions button:hover {
-  background-color: #555; /* Cor de fundo ao passar o mouse */
+  background-color: #555;
 }
 
-/* Estilo para o link ativo */
 .navbar-links a.active-link,
 .navbar-actions a.active-link {
-   /* Cor de destaque para o link ativo */
   color: gold;
   font-size: 1em;
 }
@@ -65,7 +64,6 @@
   background-color: #0056b3;
 }
 
-/* Responsividade simples (opcional) */
 @media (max-width: 768px) {
   .navbar {
     flex-direction: column;
@@ -74,7 +72,7 @@
 
   .navbar-links {
     margin-top: 10px;
-    flex-direction: column; /* Empilha os links verticalmente em telas menores */
+    flex-direction: column;
     width: 100%;
   }
 
@@ -88,7 +86,7 @@
   .navbar-links a,
   .navbar-actions a,
   .navbar-actions button {
-    display: block; /* Faz os links ocuparem toda a largura */
+    display: block;
     text-align: left;
   }
 

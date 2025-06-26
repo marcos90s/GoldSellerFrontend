@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { map, Observable, Subscription } from 'rxjs';
-import { AuthService, UserProfile } from '../../core/auth.service';
+import { AuthService, UserProfile } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit, OnDestroy{
   private authSubscription!: Subscription;
   
   constructor(private authService: AuthService, private router: Router){}
-  
+
   ngOnInit(): void {
     this.currentUser$ = this.authService.currentUser$;
     this.isLoggedIn$ = this.currentUser$.pipe(
@@ -36,5 +36,7 @@ export class HeaderComponent implements OnInit, OnDestroy{
     console.log('HeaderComponent: Chamando authService.logout()');
     this.authService.logout();
   }
+
+  
 
 }
