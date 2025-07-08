@@ -13,18 +13,21 @@
     <button class="btnGoldSellerPrimary" style="margin-top: 20px;" type="submit" [disabled]="carregandoLogin || !loginEmail || !loginPassword">
       {{ carregandoLogin ? 'Entrando...' : 'Entrar' }}
     </button>
+
+    <div *ngIf="loginMessage" style="margin-top: 10px; color: green; padding: 5px;">
+      {{ loginMessage }}
+    </div>
+
+    <div *ngIf="erroLogin" style="margin-top: 20px; color: red; padding: 5px;">
+      {{ erroLogin }}
+    </div>
+
   </form>
 
   <div *ngIf="carregandoLogin" style="margin-top: 10px;">
     Aguarde...
   </div>
 
-  <div *ngIf="loginMessage" style="margin-top: 10px; color: green; border: 1px solid green; padding: 5px;">
-    {{ loginMessage }}
-  </div>
 
-  <div *ngIf="erroLogin" style="margin-top: 10px; color: red; border: 1px solid red; padding: 5px;">
-    {{ erroLogin }}
-  </div>
 </div>
 
