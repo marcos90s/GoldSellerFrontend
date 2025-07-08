@@ -1,0 +1,79 @@
+/* Estilos gerais da tabela */
+table {
+  margin-left: 25%;
+  margin-top: 3em;
+  width: 50%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08); /* Sombra um pouco mais pronunciada para realçar */
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #f5f5dc; /* Cor creme/bege claro como fundo da tabela */
+}
+
+/* Cabeçalho da tabela */
+th {
+  background-color: #8b4513; /* Marrom escuro (SaddleBrown) para o cabeçalho */
+  color: #fffaf0; /* Off-white/bege claro para o texto do cabeçalho */
+  padding: 12px 15px;
+  text-align: left;
+  font-weight: bold;
+  border-bottom: 2px solid #5a2d0c; /* Marrom ainda mais escuro para a borda inferior */
+}
+
+/* Aplica border-radius nos cantos do cabeçalho */
+th:first-child {
+  border-top-left-radius: 8px;
+}
+
+th:last-child {
+  border-top-right-radius: 8px;
+}
+
+/* Células da tabela */
+td {
+  padding: 10px 15px;
+  border-bottom: 1px solid #e0e0e0; /* Cinza muito claro para as linhas divisórias */
+  color: #4a4a4a; /* Marrom/cinza escuro para o texto da célula */
+}
+
+/* Intercalando cores das linhas (efeito zebrado) */
+tbody tr:nth-child(even) {
+  background-color: #fcfcfc; /* Branco suave para linhas pares */
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #fff8e1; /* Bege muito claro para linhas ímpares */
+}
+
+/* Efeito ao passar o mouse sobre as linhas */
+tbody tr:hover {
+  background-color: #ffe0b2; /* Um tom de laranja/marrom claro (PeachPuff) ao passar o mouse */
+  cursor: pointer;
+}
+
+/* Última linha da tabela */
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Opcional: Estilo para o rodapé da tabela */
+tfoot {
+  background-color: #8b4513; /* Mesma cor do cabeçalho */
+  color: #fffaf0; /* Mesma cor de texto do cabeçalho */
+  font-weight: bold;
+}
+
+tfoot td {
+  padding: 12px 15px;
+  border-top: 2px solid #502506;
+
+  /* Aplica border-radius nos cantos do rodapé */
+  &:first-child {
+    border-bottom-left-radius: 8px;
+  }
+  &:last-child {
+    border-bottom-right-radius: 8px;
+  }
+
+}

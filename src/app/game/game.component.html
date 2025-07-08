@@ -1,0 +1,29 @@
+<div>
+    <div style="width: 100%;">
+        <button (click)="showAddTransaction()" style="margin-left: 50%; margin-top: 2em; background-color: #8b4513; color: white; border-radius: 4px; padding: 6px 10px; border: none">Adicionar</button>
+    </div>
+    <div *ngIf="!isLoading && displayedGameTransactions;" style="width: 100%;">
+        <table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Tipo de transação</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let gameTransaction of displayedGameTransactions">
+                    <td data-label="Item">{{ gameTransaction.itemName }}</td>
+                    <td data-label="Tipo de transação"> {{ gameTransaction.type }}</td>
+                    <td data-label="Total"> {{ gameTransaction.amount * gameTransaction.quantity }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <p *ngIf="!isLoggedIn" style="color: red;">Usuário não está logado... redirecionando!</p>
+</div>
+<app-game-new
+*ngIf="openAddTransaction"
+(save)="postGameTransaction($event)"
+(close)="closeGameAddModal()"
+></app-game-new>
