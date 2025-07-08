@@ -67,11 +67,14 @@ export class ApiService {
   private handleError(error: any): Observable<never> {
     let errorMessage = 'Ocorreu um erro desconhecido!';
     if(error.error instanceof ErrorEvent){
+      console.log('Erro Event')
       //Erro do lado do cliente ou rede
       errorMessage = `Erro do cliente: ${error.error.message}`
     }else if(error instanceof HttpErrorResponse){
+      console.log("Instanceof HTTPERROR", error)
       errorMessage = `${error.error.message}`;
       if(error.status === 401 || error.status === 403){
+        console.log(error)
         errorMessage = `${error.error.message}`
       }
     }
