@@ -1,16 +1,14 @@
-/* styles.css */
-
 .btnGoldSellerPrimary {
-  background-color: #FFD700; /* Cor de ouro */
-  color: black; /* Cor do texto (para boa visibilidade com o ouro) */
-  padding: 10px 20px; /* Espaçamento interno para o texto não ficar colado nas bordas */
-  border: none; /* Remove a borda padrão */
-  border-radius: 5px; /* Arredonda as bordas (opcional) */
-  cursor: pointer; /* Muda o cursor ao passar por cima, indicando que é clicável */
-  font-size: 1em; /* Tamanho da fonte (ajuste conforme necessário) */
-  text-align: center; /* Centraliza o texto horizontalmente */
+  background-color: gold;
+  color: black;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  text-align: center;
   display: inline-block;
-  font-weight: 600;
+  font-weight: 550;
 }
 
 .btnGoldSellerPrimary:hover{
