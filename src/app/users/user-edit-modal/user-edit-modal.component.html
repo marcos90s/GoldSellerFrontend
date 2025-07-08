@@ -1,4 +1,6 @@
-<div class="modal-overlay" (click)="closeModal()"> <div class="modal-content" (click)="$event.stopPropagation()"> <h3 *ngIf="user">Editar Usuário: {{ user.name }} ({{ user.email }})</h3>
+<div class="modal-overlay" (click)="closeModal()"> 
+  <div class="modal-content" (click)="$event.stopPropagation()"> 
+    <h3 *ngIf="user">Editar Usuário: {{ user.name }} ({{ user.email }})</h3>
     <h3 *ngIf="!user">Carregando dados do usuário...</h3>
 
     <form *ngIf="user" (ngSubmit)="onSave()">

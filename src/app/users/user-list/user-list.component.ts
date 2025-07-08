@@ -40,7 +40,7 @@ export class UserListComponent implements OnInit, OnDestroy{
   private authSubscription!: Subscription;
 
 
-  constructor(private ApiService: ApiService, private authService: AuthService, private router: Router){}
+  constructor(private apiService: ApiService, private authService: AuthService, private router: Router){}
   ngOnInit(): void {    
     this.authSubscription = this.authService.currentUser$.subscribe(user => {
       if(user){
@@ -66,8 +66,9 @@ export class UserListComponent implements OnInit, OnDestroy{
   loadInitialData() {
     if(!this.authService.isLoggedIn()){
       this.erroMessage = 'Autenticação necessária. Por favor, faça login';
-      //this.router.navigate(['/login']);
-      console.log('INITIAL DATA IF')
+      setTimeout(()=>{
+        this.router.navigate(['/login'])
+      }, 1000)
       return;
     }
 
@@ -95,7 +96,7 @@ export class UserListComponent implements OnInit, OnDestroy{
       params = new HttpParams().set('email', this.emailToSearch.trim());
     }
     
-    this.ApiService.getData<UserProfile[]>('/users', params, headers)
+    this.apiService.getData<UserProfile[]>('/users', params, headers)
     .subscribe({
       next: (response) => {
         this.displayedUsers = response;
@@ -103,7 +104,7 @@ export class UserListComponent implements OnInit, OnDestroy{
         this.isloading = false;
         console.log('Dados recebidos: ', this.displayedUsers);
       },
-      error: (errr) => this.handleApiError(errr, "Falha ao buscar usuários")       
+      error: (err) => this.handleApiError(err, "Falha ao buscar usuários")       
   });
 }
 
@@ -116,7 +117,7 @@ export class UserListComponent implements OnInit, OnDestroy{
     const headers = this.getAuthHeaders();
     if(!headers) return;
 
-    this.ApiService.getData<UserProfile>(`/users/${userId}`, undefined, headers)
+    this.apiService.getData<UserProfile>(`/users/${userId}`, undefined, headers)
     .subscribe({
       next: (response) => {
         this.displayedUsers = response ? [response] : [];
@@ -137,7 +138,7 @@ export class UserListComponent implements OnInit, OnDestroy{
     this.userCurrentlyEditing = null;
     this.showEditModal = false;
   }
-
+      
   handleUserUpdate(updatePayload: UserUpdatePayload): void{
     if(!this.userCurrentlyEditing){
       this.erroMessage = "Nenhum usuário selecionado para atualização.";
@@ -161,12 +162,14 @@ export class UserListComponent implements OnInit, OnDestroy{
 
     headers = new HttpHeaders().set('Authorization', `Bearer ${token}`)
 
-    this.ApiService.updateData<UserUpdatePayload, UserProfile>('/users', this.userCurrentlyEditing.id, updatePayload, headers)
+    this.apiService.updateData<UserUpdatePayload, UserProfile>('/users', this.userCurrentlyEditing.id, updatePayload, headers)
     .subscribe({
       next: (updateUser) =>{
         this.isloading = false;
         this.feedbackMessage = `Usuário "${updateUser.name}" atualizado com sucesso.`
-        this.closeUserEditModal();
+        setTimeout(() =>{
+          this.closeUserEditModal();
+        }, 1000)
 
         this.loadInitialData();
         console.log('Usuário atualizado');
@@ -190,7 +193,7 @@ export class UserListComponent implements OnInit, OnDestroy{
     const headers = this.getAuthHeaders();
     if(!headers) return;
 
-    this.ApiService.deleteData<any>('/users', userToDelete.id, headers)
+    this.apiService.deleteData<any>('/users', userToDelete.id, headers)
     .subscribe({
       next:() =>{
         this.feedbackMessage = `Usuário "${userToDelete.name}" deletado.`

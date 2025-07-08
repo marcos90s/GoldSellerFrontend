@@ -28,7 +28,6 @@ h2 {
 .loading-message {
   color: #004085;
   background-color: #cce5ff;
-  border: 1px solid #b8daff;
 }
 
 .feedback-message {
@@ -37,9 +36,7 @@ h2 {
 }
 
 .error-message {
-  color: #721c24;
-  background-color: #f8d7da;
-  border: 1px solid #f5c6cb;
+  color: red;
 }
 
 .no-data-message {
@@ -113,17 +110,15 @@ h2 {
 }
 
 
-/* Tabela */
-.table-responsive {
-  overflow-x: auto; /* Permite rolagem horizontal em telas pequenas */
-}
-
 table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
   background-color: #5d4519;
   box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  border-radius: 8px;
+  overflow: hidden;
+  border-collapse: collapse;
 }
 
 th, td {
