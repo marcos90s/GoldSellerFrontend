@@ -1,3 +1,4 @@
+import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -42,7 +43,6 @@ export class AuthService {
     localStorage.setItem(TOKEN_KEY, loginData.token);
     localStorage.setItem(USER_DATA_KEY, JSON.stringify(loginData.user));
     this.currentUserSubject.next(loginData.user);
-    this.router.navigate(['/home']);
   }
 
   public logout(): void{
@@ -70,5 +70,13 @@ export class AuthService {
 
   public isAdmin(): boolean{
     return this.getUserRole() === 'ADMIN';
+  }
+
+  public getAuthHeaders(): HttpHeaders | null {
+    const token = this.getToken();
+    if(!token){
+      return null;
+    }
+    return new HttpHeaders().set('Authorization', `Bearer ${token}`);
   }
 }
