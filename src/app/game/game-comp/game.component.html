@@ -9,6 +9,7 @@
                     <th>Item</th>
                     <th>Tipo de transação</th>
                     <th>Total</th>
+                    <th>Data</th>
                 </tr>
             </thead>
             <tbody>
@@ -16,6 +17,7 @@
                     <td data-label="Item">{{ gameTransaction.itemName }}</td>
                     <td data-label="Tipo de transação"> {{ gameTransaction.type }}</td>
                     <td data-label="Total"> {{ gameTransaction.amount * gameTransaction.quantity }}</td>
+                    <td data-label="Data">{{gameTransaction.localDateTime}}</td>
                 </tr>
             </tbody>
         </table>

@@ -1,9 +1,9 @@
-import { GameNewComponent, NewGameTransactionPayload } from './game-new/game-new.component';
+import { GameNewComponent, NewGameTransactionPayload } from '../game-new/game-new.component';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ApiService } from '../core/services/api.service';
-import { AuthService } from '../core/services/auth.service';
+import { ApiService } from '../../core/services/api.service';
+import { AuthService } from '../../core/services/auth.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
@@ -15,6 +15,7 @@ interface GameTransactionInfo{
   quantity: number;
   itemName: string;
   type: string;
+  localDateTime: Date;
 }
 
 @Component({
@@ -44,7 +45,6 @@ export class GameComponent implements OnInit{
   constructor(private apiService: ApiService, private authService: AuthService, private router: Router){}
 
   ngOnInit(): void{
-    console.log('On init chamado')
     this.authSubscription = this.authService.currentUser$.subscribe(user =>{
       if(user){
         this.currentUserId = user.id;
@@ -74,6 +74,7 @@ export class GameComponent implements OnInit{
     if(!token){
       this.erroMessage = 'Autenticação necessária';
       this.loadingRegister = false;
+      return
     }
 
     if(!newGameTransaction.amount || !newGameTransaction.itemName || !newGameTransaction.quantity || !newGameTransaction.type ){
@@ -84,8 +85,7 @@ export class GameComponent implements OnInit{
     }
 
     headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    newGameTransaction.userId = this.authService.getCurrentUserId();
-    console.log({headers})
+    newGameTransaction.userId = this.currentUserId;
 
     this.apiService.postData<NewGameTransactionPayload, GameTransactionInfo>('/game', newGameTransaction, {headers})
     .subscribe({
@@ -117,7 +117,8 @@ export class GameComponent implements OnInit{
 
     const headers = this.authService.getAuthHeaders();
     if(!headers){
-      this.erroMessage = 'Autenticação é necessária'
+      this.erroMessage = 'Autenticação é necessária!'
+      this.isLoading = false;
       this.router.navigate(['/login'])
       return
     }
