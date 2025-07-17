@@ -1,0 +1,33 @@
+<div>
+    <div>
+        <button (click)="showAddTransaction()">adicionar</button>
+    </div>
+    <div *ngIf="!isLoading && displayedRelTransaction">
+        <table>
+            <thead>
+                <tr>
+                    <th>Para</th>
+                    <th>Valor</th>
+                    <th>Gold</th>
+                    <th>Descrição</th>
+                    <th>Data</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let realTransaction of displayedRelTransaction">
+                    <td data-label="Para">{{realTransaction.charName}}</td>
+                    <td data-label="Valor">{{realTransaction.amount}}</td>
+                    <td data-label="Gold">{{realTransaction.amountInGold}}</td>
+                    <td data-label="Descrição">{{realTransaction.description}}</td>
+                    <td data-label="Data">{{realTransaction.date}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <p *ngIf="!isLoggedIn" style="color: red;">Usuário não está logado!</p>
+</div>
+<app-real-new
+*ngIf="openAddTransactionModal"
+(save)="postRealTransaction($event)"
+(close)="closeAddModal()"
+></app-real-new>

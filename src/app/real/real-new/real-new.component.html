@@ -1,0 +1,30 @@
+<div class="modal-game-overlay" (click)="closeModal()">
+    <div class="modal-game-content" (click)="$event.stopPropagation()">
+        <h3>Adicionar Transação</h3>
+        <form (ngSubmit)="onSave()">
+            <div class="form-game-group">    
+                <label for="amount">Valor</label>
+                <input type="number" name="amount" id="amount" [(ngModel)]="amount" required>
+            </div>
+            <div class="form-game-group">
+                <label for="amountInGold">Gold</label>
+                <input type="number" name="amountInGold" id="amountInGold" [(ngModel)]="amountInGold" required>
+            </div>
+            <div class="form-game-group">
+                <label for="charName">Para</label>
+                <input type="text" name="charName" id="charName" [(ngModel)]="charName" required>
+            </div>
+            <div class="form-game-group">
+                <label for="description">Descrição</label>
+                <input type="text" name="description" id="description" [(ngModel)]="description">
+            </div>
+            <div>
+                <button type="submit">Adicionar</button>
+                <button type="button" (click)="closeModal()">Cancelar</button>
+            </div>
+            <div>
+                <p *ngIf="feedbackMessage" style="color: red;">{{feedbackMessage}}</p>
+            </div>
+        </form>
+    </div>
+</div>

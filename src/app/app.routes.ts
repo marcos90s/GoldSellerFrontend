@@ -3,7 +3,8 @@ import { LoginComponent } from './auth/login/login.component';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { UserListComponent } from './users/user-list/user-list.component';
-import { GameComponent } from './game/game.component';
+import { GameComponent } from './game/game-comp/game.component';
+import { RealTransactionComponent } from './real/real-transaction/real-transaction.component';
 
 export const routes: Routes = [
     {path: 'login', component: LoginComponent},
@@ -11,5 +12,6 @@ export const routes: Routes = [
     {path: 'register', component: RegisterComponent},
     {path: 'users', component: UserListComponent},
     {path: '', redirectTo: '/home', pathMatch: 'full'},
-    {path: 'game', component: GameComponent }
+    {path: 'game', component: GameComponent },
+    {path: 'real', component: RealTransactionComponent}
 ];
