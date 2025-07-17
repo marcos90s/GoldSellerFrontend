@@ -3,6 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { map, Observable, Subscription } from 'rxjs';
 import { AuthService, UserProfile } from '../../core/services/auth.service';
+import { ApiService } from '../../core/services/api.service';
 
 @Component({
   selector: 'app-header',
@@ -15,13 +16,16 @@ export class HeaderComponent implements OnInit, OnDestroy{
   
   isLoggedIn$!: Observable<boolean>;
   currentUser$!: Observable<UserProfile | null>;
+  currentUserProfile: UserProfile | null = null;
+  erroMessage: string = '';
 
   private authSubscription!: Subscription;
   
-  constructor(private authService: AuthService, private router: Router){}
+  constructor(private authService: AuthService, private apiService: ApiService, private router: Router){}
 
   ngOnInit(): void {
     this.currentUser$ = this.authService.currentUser$;
+    this.getCurrentUserInfo();
     this.isLoggedIn$ = this.currentUser$.pipe(
       map(user => !!user)
     )
@@ -35,6 +39,20 @@ export class HeaderComponent implements OnInit, OnDestroy{
   logout(): void{
     console.log('HeaderComponent: Chamando authService.logout()');
     this.authService.logout();
+  }
+
+  getCurrentUserInfo(): UserProfile | void{
+    const headers = this.authService.getAuthHeaders();
+    if(!headers) return;
+    
+    this.apiService.getData<UserProfile>(`/users/${this.authService.getCurrentUserId()}`, undefined, headers)
+    .subscribe({
+      next: (response) => {
+        this.currentUserProfile = response;
+      },
+      error:(err) => this.erroMessage = 'Algo deu errado'
+    });
+    
   }
 
   
