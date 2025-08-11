@@ -47,3 +47,26 @@
   box-sizing: border-box; /* Garante que padding não aumente a largura total */
   font-size: 1em;
 }
+
+/* Styling the select element */
+select {
+  width: 200px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  color: #333;
+  font-size: 16px;
+}
+
+/* Styling the option elements within the select */
+option {
+  background-color: #fff;
+  color: #555;
+  padding: 5px;
+}
+
+/* Styling the selected option */
+option:checked {
+  background-color: #e0e0e0;
+  color: #000;
+}

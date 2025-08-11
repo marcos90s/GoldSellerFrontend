@@ -16,7 +16,10 @@
             </div>
             <div class="form-game-group">
                 <label for="type">Tipo</label>
-                <input type="text" id="type" name="type" [(ngModel)]="type" required> 
+                <select name="type" id="type" [(ngModel)]="type" required>
+                    <option value="SALE">SALE</option>
+                    <option value="PURCHASE">PURCHASE</option>
+                </select>
             </div>
             <div>
                 <button type="submit">Adicionar</button>

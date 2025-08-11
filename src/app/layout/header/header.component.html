@@ -7,9 +7,24 @@
     <li><a routerLink="/sobre" routerLinkActive="active-link">Sobre</a></li>
   </ul>
   <ul class="navbar-actions">
-    <li *ngIf="isLoggedIn$"><a routerLink="/info" routerLinkActive="active-link">{{currentUserProfile?.totalGold | number}} Golds</a></li>
-    <li *ngIf="isLoggedIn$"><a routerLink="/info" routerLinkActive="active-link">R${{currentUserProfile?.totalMoney | number}}</a></li>
-    <li *ngIf="!(isLoggedIn$ | async)"> <a routerLink="/login" routerLinkActive="active-link">Login</a></li>
-    <li *ngIf="isLoggedIn$ | async"> <a (click)="logout()" href="javascript:void(0);" class="logout-link">Logout</a></li>
+    <ng-container *ngIf="isLoggedIn$ | async; else naoLogado">
+      <li *ngIf="currentUserProfile?.totalGold; else naoTemGold">Gold: {{currentUserProfile?.totalGold | number}}</li>
+      <li *ngIf="currentUserProfile?.totalMoney; else naoTemMoney">R$ {{currentUserProfile?.totalMoney | number}}</li>
+      <li *ngIf="isLoggedIn$ | async"> <a (click)="logout()" href="javascript:void(0);" class="logout-link">Logout</a></li>
+    </ng-container>
   </ul>
 </nav>
+
+<ng-template #naoLogado>
+  <li>
+    <a routerLink="/login" routerLinkActive="active-link">Login</a>
+  </li>
+</ng-template>
+
+<ng-template #naoTemMoney>
+  <li>R$ 0</li>
+</ng-template>
+
+<ng-template #naoTemGold>
+  <li>Gold: 0</li>
+</ng-template>

@@ -18,7 +18,7 @@ export class HeaderComponent implements OnInit, OnDestroy{
   currentUser$!: Observable<UserProfile | null>;
   currentUserProfile: UserProfile | null = null;
   erroMessage: string = '';
-
+ 
   private authSubscription!: Subscription;
   
   constructor(private authService: AuthService, private apiService: ApiService, private router: Router){}
@@ -26,6 +26,7 @@ export class HeaderComponent implements OnInit, OnDestroy{
   ngOnInit(): void {
     this.currentUser$ = this.authService.currentUser$;
     this.getCurrentUserInfo();
+    console.log('total gold',this.currentUserProfile)
     this.isLoggedIn$ = this.currentUser$.pipe(
       map(user => !!user)
     )
@@ -48,6 +49,7 @@ export class HeaderComponent implements OnInit, OnDestroy{
     this.apiService.getData<UserProfile>(`/users/${this.authService.getCurrentUserId()}`, undefined, headers)
     .subscribe({
       next: (response) => {
+        console.log('response',response)
         this.currentUserProfile = response;
       },
       error:(err) => this.erroMessage = 'Algo deu errado'
