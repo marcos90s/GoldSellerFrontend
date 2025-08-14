@@ -2,9 +2,8 @@
   <div class="navbar-brand">
     <a routerLink="/" class="navbar-logo">Gold Seller</a> </div>
   <ul class="navbar-links">
-    <li><a routerLink="/home" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">Início</a></li>
     <li><a routerLink="/users" routerLinkActive="active-link">Usuários</a></li>
-    <li><a routerLink="/sobre" routerLinkActive="active-link">Sobre</a></li>
+    <li><a routerLinke="/real" routerLinkActive="active-link"></a></li>
   </ul>
   <ul class="navbar-actions">
     <ng-container *ngIf="isLoggedIn$ | async; else naoLogado">
@@ -26,5 +25,5 @@
 </ng-template>
 
 <ng-template #naoTemGold>
-  <li>Gold: 0</li>
+  <li>Gold: 0 Esse</li>
 </ng-template>
