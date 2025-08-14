@@ -169,7 +169,7 @@ export class UserListComponent implements OnInit, OnDestroy{
         this.feedbackMessage = `Usuário "${updateUser.name}" atualizado com sucesso.`
         setTimeout(() =>{
           this.closeUserEditModal();
-        }, 1000)
+        }, 300)
 
         this.loadInitialData();
         console.log('Usuário atualizado');
